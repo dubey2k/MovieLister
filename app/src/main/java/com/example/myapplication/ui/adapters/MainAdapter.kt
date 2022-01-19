@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters
+package com.example.myapplication.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.constants.IMAGE_BASE
 import com.example.myapplication.databinding.MainItemBinding
-import com.example.myapplication.models.Movie
+import com.example.myapplication.data.models.Movie
 
 
 class MainAdapter(
