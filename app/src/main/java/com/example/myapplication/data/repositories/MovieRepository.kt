@@ -3,6 +3,7 @@ package com.example.myapplication.data.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.data.models.Movie
+import com.example.myapplication.data.models.MovieResponse
 import com.example.myapplication.network.RetrofitInstance
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -20,29 +21,17 @@ class movieRepository private constructor(){
         }
     }
 
-    suspend fun getPopularMovies(): LiveData<List<Movie>>{
-        var data: MutableLiveData<List<Movie>> = MutableLiveData()
-            var response = RetrofitInstance.api.getPopularList().awaitResponse().body()
-            val gson = Gson()
-            var movies : MutableList<Movie> = mutableListOf()
-            (response?.get("results") as JsonArray).forEach {
-                var testModel:Movie = gson.fromJson(it, Movie::class.java)
-                movies.add(testModel)
-            }
-        data.value = movies
+    suspend fun getPopularMovies(page: Int): LiveData<MovieResponse>{
+        val data: MutableLiveData<MovieResponse> = MutableLiveData()
+        val response = RetrofitInstance.api.getPopularList(page).awaitResponse().body()
+        data.value =  response
         return data
     }
 
-    suspend fun getUpcomingMovies(): LiveData<List<Movie>>{
-        var data: MutableLiveData<List<Movie>> = MutableLiveData()
-        var response = RetrofitInstance.api.getUpcomingList().awaitResponse().body()
-        val gson = Gson()
-        var movies : MutableList<Movie> = mutableListOf()
-        (response?.get("results") as JsonArray).forEach {
-            var testModel:Movie = gson.fromJson(it, Movie::class.java)
-            movies.add(testModel)
-        }
-        data.value = movies
+    suspend fun getUpcomingMovies(page:Int): LiveData<MovieResponse>{
+        val data: MutableLiveData<MovieResponse> = MutableLiveData()
+        val response = RetrofitInstance.api.getUpcomingList(page).awaitResponse().body()
+        data.value = response
         return data
     }
 }

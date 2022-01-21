@@ -1,5 +1,7 @@
 package com.example.myapplication.data.models
 
 data class MovieResponse(
-    val list : List<Movie>
+    val results : List<Movie>,
+    val page : Int,
+    val total_pages : Int
 )

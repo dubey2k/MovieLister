@@ -13,7 +13,14 @@ import com.example.myapplication.data.models.Movie
 
 
 class MainAdapter(
+    var callback :IPagingCallback
 ) : RecyclerView.Adapter<MainAdapter.mainVH>() {
+
+    interface IPagingCallback {
+        fun startPaging()
+    }
+
+
     inner class mainVH(val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private  val diffUtil = object : DiffUtil.ItemCallback<Movie>() {
@@ -32,11 +39,14 @@ class MainAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mainVH {
-        val view = MainItemBinding.bind(LayoutInflater.from(parent.context).inflate(R.layout.main_item,parent,false));
+        val view = MainItemBinding.bind(LayoutInflater.from(parent.context).inflate(R.layout.main_item,parent,false))
         return mainVH(view)
     }
 
     override fun onBindViewHolder(holder: mainVH, position: Int) {
+        if(position == items.size - 1){
+            callback.startPaging()
+        }
         holder.itemView.apply {
             holder.binding.titleItem.text = items[position].original_title
             holder.binding.descItem.text = items[position].overview
