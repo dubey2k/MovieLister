@@ -3,19 +3,26 @@ package com.example.myapplication.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.MOVIES_CATEGORY
+import com.example.myapplication.constants.CAT_POPULAR
+import com.example.myapplication.constants.CAT_UPCOMING
 import com.example.myapplication.data.models.Movie
 import com.example.myapplication.data.models.MovieResponse
 import com.example.myapplication.data.repositories.movieRepository
 
-class mainViewModel : ViewModel() {
+class mainViewModel() : ViewModel() {
+    lateinit var catList: List<String>
     val repository: movieRepository = movieRepository.getInstance()
+
+//    var catMovieList : MutableLiveData<MutableList<MutableList<Movie>>> = MutableLiveData<MutableList<MutableList<Movie>>>(
+//        mutableListOf(mutableListOf<Movie>())
+//    )
+//        private set
+//    var index : Int = 0
+
     var movieListPopular : MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>(
-        mutableListOf<Movie>())
+        mutableListOf())
         private set
     var movieListUpcoming : MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>(mutableListOf<Movie>())
-        private set
-    var curList : MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>(mutableListOf<Movie>())
         private set
 
     //loading values
@@ -23,7 +30,7 @@ class mainViewModel : ViewModel() {
     var pageLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     //selected category
-    var selCategory: MOVIES_CATEGORY = MOVIES_CATEGORY.POPULAR
+    var selCategory: String = CAT_POPULAR
 
     //paging variables for popular movies
     var CUR_PAGE_POP : Int = 1
@@ -36,14 +43,14 @@ class mainViewModel : ViewModel() {
     var isLast_UP : Boolean = false
 
 
-    suspend fun fetchData(sel:MOVIES_CATEGORY,initial: Boolean? = false) {
+    suspend fun fetchData(sel:String,initial: Boolean? = false) {
         selCategory = sel
         if (initial != null && initial)
             loading.value = true
         else
             pageLoading.value = true
 
-        if(selCategory == MOVIES_CATEGORY.POPULAR && !isLast_POP){
+        if(selCategory == CAT_POPULAR && !isLast_POP){
             val res = repository.getPopularMovies(CUR_PAGE_POP).value!!
             if(TOTAL_PAGES_POP != null && res.page >= (TOTAL_PAGES_POP!!)) {
                 isLast_POP = true
@@ -54,8 +61,7 @@ class mainViewModel : ViewModel() {
             val oldList = movieListPopular.value
             oldList?.addAll(res.results)
             movieListPopular.value = oldList
-            curList.value = movieListPopular.value
-        }else if(selCategory == MOVIES_CATEGORY.UPCOMING && !isLast_UP){
+        }else if(selCategory == CAT_UPCOMING && !isLast_UP){
             val res = repository.getUpcomingMovies(CUR_PAGE_UP).value!!
             if(TOTAL_PAGES_UP != null && res.page >= (TOTAL_PAGES_UP!!))
                 isLast_UP = true
@@ -65,7 +71,6 @@ class mainViewModel : ViewModel() {
             val oldList = movieListUpcoming.value
             oldList?.addAll(res.results)
             movieListUpcoming.value = oldList
-            curList.value = movieListUpcoming.value
         }
         loading.value = false
         pageLoading.value = false
