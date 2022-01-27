@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.ui.fragments.mainFragment
+import com.example.myapplication.ui.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val listFrag = mainFragment()
+        val listFrag = MainFragment()
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.listFragment,listFrag)

@@ -67,5 +67,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
 
     //ViewPager
-    implementation "com.google.android.material:material:1.6.0-alpha01"
+    implementation "com.google.android.material:material:1.6.0-alpha02"
+
+    //JetPack Paging Library
+    implementation "androidx.paging:paging-runtime:3.1.0"
 }
