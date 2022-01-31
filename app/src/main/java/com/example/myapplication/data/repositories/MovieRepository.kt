@@ -1,5 +1,6 @@
 package com.example.myapplication.data.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.data.models.Movie
@@ -32,6 +33,15 @@ class movieRepository private constructor(){
         val data: MutableLiveData<MovieResponse> = MutableLiveData()
         val response = RetrofitInstance.api.getUpcomingList(page).awaitResponse().body()
         data.value = response
+        return data
+    }
+
+    suspend fun searchMovies(text:String,page:Int): LiveData<MovieResponse>{
+        val data: MutableLiveData<MovieResponse> = MutableLiveData()
+        val response = RetrofitInstance.api.searchMovies(text,page).awaitResponse()
+//        Log.d("TAG", "searchMovie: repository" + response.body() )
+//        Log.d("TAG", "searchMovie: repository" + response.code())
+        data.value = response.body()
         return data
     }
 }

@@ -47,11 +47,10 @@ class MainAdapter(
         if(position == items.size - 1){
             callback.startPaging()
         }
-        holder.itemView.apply {
-            holder.binding.titleItem.text = items[position].original_title
-            holder.binding.descItem.text = items[position].overview
-            holder.binding.posterImg
-            Glide.with(this).load(IMAGE_BASE + items[position].poster_path).into(holder.binding.posterImg)
+        holder.binding.apply {
+            titleItem.text = items[position].original_title
+            descItem.text = items[position].overview
+            Glide.with(this.root).load(IMAGE_BASE + items[position].poster_path).into(holder.binding.posterImg)
         }
     }
 
