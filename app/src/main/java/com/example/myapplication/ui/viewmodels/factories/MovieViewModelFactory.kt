@@ -1,10 +1,10 @@
-package com.example.myapplication.ui.viewmodels
+package com.example.myapplication.ui.viewmodels.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.data.models.Movie
+import com.example.myapplication.ui.viewmodels.ItemListViewModel
 
-class ViewModelFactory(val index:Int): ViewModelProvider.Factory{
+class MovieViewModelFactory(val index:Int): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(ItemListViewModel::class.java)){
             return ItemListViewModel(index) as T

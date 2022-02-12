@@ -9,9 +9,9 @@ import com.example.myapplication.constants.CAT_POPULAR
 import com.example.myapplication.constants.CAT_UPCOMING
 import com.example.myapplication.ui.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.movie_fragment.*
 
-class MainFragment : Fragment(R.layout.main_fragment) {
+class MovieFragment : Fragment(R.layout.movie_fragment) {
     val cat: List<String> = listOf(CAT_POPULAR, CAT_UPCOMING)
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
     private fun setUpViewPager() = viewPager.apply {
-        viewPagerAdapter = ViewPagerAdapter(cat,this@MainFragment.getActivity() as FragmentActivity)
+        viewPagerAdapter = ViewPagerAdapter(cat,this@MovieFragment.getActivity() as FragmentActivity)
         this.adapter = viewPagerAdapter
     }
 }

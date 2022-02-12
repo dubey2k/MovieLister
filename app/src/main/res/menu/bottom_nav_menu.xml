@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/bottomNavMovie"
+        android:title="Movies"
+        android:icon="@drawable/movie_icon"/>
+    <item android:id="@+id/bottomNavMusic"
+        android:title="Music"
+        android:icon="@drawable/music_icon"/>
+
+</menu>

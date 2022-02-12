@@ -59,16 +59,19 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // Coroutine Lifecycle Scopes
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
 
     //ViewPager
     implementation "com.google.android.material:material:1.6.0-alpha02"
 
     //JetPack Paging Library
-    implementation "androidx.paging:paging-runtime:3.1.0"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
+
+    //For Notification
+    implementation "androidx.media:media:1.5.0"
 }

@@ -1,22 +1,23 @@
 package com.example.myapplication.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.constants.IMAGE_BASE
-import com.example.myapplication.databinding.MainItemBinding
 import com.example.myapplication.data.models.Movie
+import com.example.myapplication.databinding.MovieListItemBinding
 
 
-class MainAdapter: PagingDataAdapter<Movie, MainAdapter.mainVH>(DiffUtilCallBack()) {
+class MainAdapter(val obj: MovieItemClick): PagingDataAdapter<Movie, MainAdapter.mainVH>(DiffUtilCallBack()) {
 
-    inner class mainVH(val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root)
+    interface MovieItemClick{
+        fun onClick( movie: Movie)
+    }
+    inner class mainVH(val binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     class DiffUtilCallBack : DiffUtil.ItemCallback<Movie>() {
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -29,8 +30,8 @@ class MainAdapter: PagingDataAdapter<Movie, MainAdapter.mainVH>(DiffUtilCallBack
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mainVH {
-        val view = MainItemBinding.bind(
-            LayoutInflater.from(parent.context).inflate(R.layout.main_item, parent, false)
+        val view = MovieListItemBinding.bind(
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
         )
         return mainVH(view)
     }
@@ -42,6 +43,9 @@ class MainAdapter: PagingDataAdapter<Movie, MainAdapter.mainVH>(DiffUtilCallBack
             holder.binding.posterImg
             Glide.with(this).load(IMAGE_BASE + getItem(position)?.poster_path)
                 .into(holder.binding.posterImg)
+        }
+        holder.itemView.setOnClickListener {
+            obj.onClick(getItem(position)!!)
         }
     }
 }
